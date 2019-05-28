@@ -160,10 +160,15 @@ function handleMessage(sender_psid, received_message) {
 
     let msg;
 
+    
+
     if (!received_message.text) {
         msg = {
             "text": "digite algo"
         }
+
+        console.log(received_message);
+
     }
     else {
 
