@@ -17,7 +17,7 @@
 
 // Imports dependencies and set up http server
 const
-    { Client } = require('pg'),
+    Client = require('pg'),
     request = require('request'),
     express = require('express'),
     body_parser = require('body-parser'),
