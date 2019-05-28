@@ -147,14 +147,17 @@ function callSendAPI(sender_psid, response) {
 function handleMessage(sender_psid, received_message) {
     console.log("handleMessage");
 
-    if (received_message.text) {
-        callSendAPI(sender_psid, "digite algo");    
+    let msg;
+
+    if (!received_message.text) {
+        msg = {
+            "text": "digite algo"
+        }
     }
-
-    var msg = "retorno mensagem: " + received_message.text;
-
-    msg = {
-        "text": "retorno mensagem: " + received_message.text
+    else {
+        msg = {
+            "text": "retorno mensagem: " + received_message.text
+        }
     }
 
     callSendAPI(sender_psid, msg);
