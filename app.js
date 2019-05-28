@@ -17,12 +17,12 @@
 
 // Imports dependencies and set up http server
 const
-    { Client } = require('pg')
+    { Client } = require('pg'),
     request = require('request'),
     express = require('express'),
     body_parser = require('body-parser'),
     //access_token = process.env.ACCESS_TOKEN,
-    access_token = "EAAJaRtu9VEQBAOgchDHruROghkxU436Bv9RTGg4h6qdarzUVSqe0VvQbnZAEYyiKa2SKjIWZAQWFi5Y23emGx3pWpqzSgolQRCQTiVqKOKh9TSwEoU3TshooW9OudcvITrhnBF4ZA4o4P0cJWR8ZCAhLL10OZB1ILsh9WlRwuTgZDZD",
+    access_token = "EAAJaRtu9VEQBAKqT7Hx5BmNQVDEdJWrTx7J4zJETAMyvRDBZCSslqjY7PJ3q9wJXZBEBPJ4RR2Bq34RdbmDaqLltfCm60eIe9dLdAQNU3nMVoMjLhka9bENZA7vtmp496Pfbrg9WtfcHyoZAGoJggNVjkk5ZBqiiZBAwqIX3ZBU5QZDZD",
     app = express().use(body_parser.json()); // creates express http server
     
 // Sets server port and logs message on success
@@ -32,9 +32,6 @@ app.listen(process.env.PORT || 5000, () => console.log('webhook is listening'));
 app.post('/webhook', (req, res) => {
     // Parse the request body from the POST
     let body = req.body;
-
-    console.log("body");
-    console.log(body);
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
@@ -66,8 +63,8 @@ app.post('/webhook', (req, res) => {
         if (body.object === 'user') {
 
             const client = new Client({
-                connectionString: process.env.DATABASE_URL,
-                ssl: true,
+            connectionString: process.env.DATABASE_URL,
+            ssl: true,
             });
 
             client.connect();
@@ -116,6 +113,7 @@ function processComments(comment) {
 
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
+    console.log(req);
     const verify_token = '1223re';
 
     // Parse params from the webhook verification request
@@ -187,22 +185,9 @@ function handleMessage(sender_psid, received_message) {
         }
     }
     else {
-
-        if (received_message.text == "oi" || received_message.text == "ola") {
-            msg = {
-                "text": "Oi representante, voc� est� querendo comprar Eudora, n�? Sou a assistente virtual que vai te ajudar",
-                "quick_replies": [
-                    {
-                        "content_type": "location"
-                    }]
-            }
+        msg = {
+            "text": "retorno mensagem: " + received_message.text
         }
-        else {
-            msg = {
-                "text": "retorno mensagem: " + received_message.text
-            }
-        }
-
     }
 
     console.log("msg: ");
