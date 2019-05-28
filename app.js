@@ -43,6 +43,8 @@ app.post('/webhook', (req, res) => {
                 let sender_psid = webhook_event.sender.id;
                 console.log(`Sender PSID: ${sender_psid}`);
 
+                helloFunction(sender_psid);
+
                 // Check if the event is a message or postback and
                 // pass the event to the appropriate handler function
                 if (webhook_event.message) {
@@ -176,3 +178,30 @@ function handlePostback(sender_psid, received_postback) {
     console.log("handlePostback");
 }
 
+function helloFunction(sender_psid) {
+
+    console.log("helloFunction");
+
+    callSendAPI(sender_psid, { "text": "bom dia" });
+
+    teste = request({
+        "uri": "https://graph.facebook.com/" + sender_psid + "?fields=first_name,last_name,profile_pic&access_token=" + access_token,
+        "method": "GET",
+    }, (err, res, body) => {
+        if (!err) {
+            console.log('helloFunction');
+            console.log(body);
+        } else {
+            console.error("Unable to send message:" + err);
+        }
+    });
+
+    console.log("teste");
+    console.log(teste);
+
+    msg = {
+        "text": "Oi, {Name}, você está querendo comprar Eudora, né? Sou a assistente virtual que vai te ajudar"
+    }
+
+    callSendAPI(sender_psid, msg);
+}
