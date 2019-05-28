@@ -160,14 +160,8 @@ function handleMessage(sender_psid, received_message) {
         }
     }
     else {
-        if (received_message.text == "oi" || received_message.text == "ola") {
-            var hello = helloFunction();
-            msg = hello;
-        }
-        else {
-            msg = {
-                "text": "retorno mensagem: " + received_message.text
-            }
+        msg = {
+            "text": "retorno mensagem: " + received_message.text
         }
     }
 
@@ -182,30 +176,3 @@ function handlePostback(sender_psid, received_postback) {
     console.log("handlePostback");
 }
 
-function helloFunction() {
-
-    console.log("helloFunction");
-
-    callSendAPI(sender_psid, { "text": "bom dia" });
-
-    teste = request({
-        "uri": "https://graph.facebook.com/" + sender_psid + "?fields=first_name,last_name,profile_pic&access_token=" + access_token,
-        "method": "GET",
-    }, (err, res, body) => {
-        if (!err) {
-            console.log('helloFunction');
-            console.log(body);
-        } else {
-            console.error("Unable to send message:" + err);
-        }
-    });
-
-    console.log("teste");
-    console.log(teste);
-
-    hellomsg = {
-        "text": "Oi, {Name}, você está querendo comprar Eudora, né? Sou a assistente virtual que vai te ajudar"
-    }
-
-    return hellomsg;
-}
