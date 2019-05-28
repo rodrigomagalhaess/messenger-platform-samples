@@ -151,7 +151,7 @@ function handleMessage(sender_psid, received_message) {
         callSendAPI(sender_psid, "digite algo");    
     }
 
-    msg = "retorno mensagem: " + received_message.text;
+    var msg = "retorno mensagem: " + received_message.text;
 
     callSendAPI(sender_psid, msg);
 }
