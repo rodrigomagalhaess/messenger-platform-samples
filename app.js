@@ -165,7 +165,8 @@ function handleMessage(sender_psid, received_message) {
         }
     }
 
-    console.log("msg" + msg);
+    console.log("msg: ");
+    console.log(msg);
 
     callSendAPI(sender_psid, msg);
 }
