@@ -167,9 +167,13 @@ function handleMessage(sender_psid, received_message) {
     }
     else {
 
-        if (received_message.text == "oi" || received_message.text == "opa") {
+        if (received_message.text == "oi" || received_message.text == "ola") {
             msg = {
-                "text": "Oi representante, você está querendo comprar Eudora, né? Sou a assistente virtual que vai te ajudar"
+                "text": "Oi representante, você está querendo comprar Eudora, né? Sou a assistente virtual que vai te ajudar",
+                "quick_replies": [
+                    {
+                        "content_type": "location"
+                    }]
             }
         }
         else {
@@ -177,7 +181,7 @@ function handleMessage(sender_psid, received_message) {
                 "text": "retorno mensagem: " + received_message.text
             }
         }
-        
+
     }
 
     console.log("msg: ");
