@@ -17,7 +17,6 @@
 
 // Imports dependencies and set up http server
 const
-    Client = require('pg'),
     request = require('request'),
     express = require('express'),
     body_parser = require('body-parser'),
@@ -62,6 +61,8 @@ app.post('/webhook', (req, res) => {
 
         if (body.object === 'user') {
 
+            
+            const Client = require('pg');
             const client = new Client({
             connectionString: process.env.DATABASE_URL,
             ssl: true,
