@@ -23,7 +23,7 @@ const
     //access_token = process.env.ACCESS_TOKEN,
     access_token = "EAAJaRtu9VEQBAKqT7Hx5BmNQVDEdJWrTx7J4zJETAMyvRDBZCSslqjY7PJ3q9wJXZBEBPJ4RR2Bq34RdbmDaqLltfCm60eIe9dLdAQNU3nMVoMjLhka9bENZA7vtmp496Pfbrg9WtfcHyoZAGoJggNVjkk5ZBqiiZBAwqIX3ZBU5QZDZD",
     app = express().use(body_parser.json()); // creates express http server
-    
+
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 5000, () => console.log('webhook is listening'));
 
@@ -62,19 +62,19 @@ app.post('/webhook', (req, res) => {
 
         if (body.object === 'user') {
 
-            
+
             const Client = require('pg');
             const client = new Client({
-            connectionString: process.env.DATABASE_URL,
-            ssl: true,
+                connectionString: process.env.DATABASE_URL,
+                ssl: true,
             });
 
             client.connect();
 
-            client.query('INSERT INTO USERS(USER_REF,PSID,latitude,longitude)VALUES('+body.object.user_ref+',0,'+body.object.latitude+','+body.object.longitude+') ;', (err, res) => {
-            if (err) throw err;
-            console.log(res);
-            client.end();
+            client.query('INSERT INTO USERS(USER_REF,PSID,latitude,longitude)VALUES(' + body.object.user_ref + ',0,' + body.object.latitude + ',' + body.object.longitude + ') ;', (err, res) => {
+                if (err) throw err;
+                console.log(res);
+                client.end();
             });
 
             res.status(200).send(JSON.stringify(res));
@@ -185,11 +185,26 @@ function handleMessage(sender_psid, received_message) {
         msg = {
             "text": "digite algo"
         }
+
+        console.log(received_message);
     }
     else {
-        msg = {
-            "text": "retorno mensagem: " + received_message.text
+
+        if (received_message.text == "oi" || received_message.text == "ola") {
+            msg = {
+                "text": "Oi represenante, você está querendo comprar Eudora, né? Sou a assistente virtual que vai te ajudar",
+                "quick_replies": [
+                    {
+                        "content_type": "location"
+                    }]
+            }
         }
+        else {
+            msg = {
+                "text": "retorno mensagem: " + received_message.text
+            }
+        }
+
     }
 
     console.log("msg: ");
