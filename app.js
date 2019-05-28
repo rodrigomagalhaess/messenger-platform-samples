@@ -97,7 +97,7 @@ function processComments(comment) {
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
     console.log(req);
-    const verify_token = process.env.VERIFY_TOKEN;
+    const verify_token = '1223re';
 
     // Parse params from the webhook verification request
     let mode = req.query['hub.mode'];
