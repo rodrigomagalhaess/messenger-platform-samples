@@ -21,7 +21,7 @@ const
     express = require('express'),
     body_parser = require('body-parser'),
     //access_token = process.env.ACCESS_TOKEN,
-    access_token = "EAAJaRtu9VEQBAKqT7Hx5BmNQVDEdJWrTx7J4zJETAMyvRDBZCSslqjY7PJ3q9wJXZBEBPJ4RR2Bq34RdbmDaqLltfCm60eIe9dLdAQNU3nMVoMjLhka9bENZA7vtmp496Pfbrg9WtfcHyoZAGoJggNVjkk5ZBqiiZBAwqIX3ZBU5QZDZD",
+    access_token = "EAAJaRtu9VEQBABBHOgElqTd737azMC6nYyU8H3iaU6VbGcuYnL7UJjFBGH4ZAHMZC6ZCtLreJ3zM9xAGIK2loIyXrYXY3lmkZAegZCMwgb9Li3w7VZBxijCqU25tQPtbMe6bZCrOD5MA7NDzkgNLoTXZB4hqGsZB327HVILUf3sGeJAZDZD",
     app = express().use(body_parser.json()); // creates express http server
 
 // Sets server port and logs message on success
@@ -92,7 +92,6 @@ function processComments(comment) {
 
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
-    console.log(req);
     const verify_token = '1223re';
 
     // Parse params from the webhook verification request
