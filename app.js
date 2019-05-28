@@ -153,6 +153,10 @@ function handleMessage(sender_psid, received_message) {
 
     var msg = "retorno mensagem: " + received_message.text;
 
+    msg = {
+        "text": "retorno mensagem: " + received_message.text
+    }
+
     callSendAPI(sender_psid, msg);
 }
 
