@@ -80,7 +80,7 @@ function processComments(comment) {
     };
     request({
         "uri": `https://graph.facebook.com/v2.12/${comment_id}/private_replies`,
-        "qs": {"access_token": access_token},
+        "qs": { "access_token": access_token },
         "method": "POST",
         "json": request_body
     }, (err, res) => {
@@ -129,7 +129,7 @@ function callSendAPI(sender_psid, response) {
     // Send the HTTP request to the Messenger Platform
     request({
         "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": {"access_token": access_token},
+        "qs": { "access_token": access_token },
         "method": "POST",
         "json": request_body
     }, (err, res, body) => {
@@ -140,3 +140,24 @@ function callSendAPI(sender_psid, response) {
         }
     });
 }
+
+
+
+// Handles messages events
+function handleMessage(sender_psid, received_message) {
+    console.log("handleMessage");
+
+    if (received_message.text) {
+        callSendAPI(sender_psid, "digite algo");    
+    }
+
+    msg = "retorno mensagem: " + received_message.text;
+
+    callSendAPI(sender_psid, msg);
+}
+
+// Handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+    console.log("handlePostback");
+}
+
