@@ -17,13 +17,14 @@
 
 // Imports dependencies and set up http server
 const
+    { Client } = require('pg')
     request = require('request'),
     express = require('express'),
     body_parser = require('body-parser'),
     //access_token = process.env.ACCESS_TOKEN,
     access_token = "EAAJaRtu9VEQBAOgchDHruROghkxU436Bv9RTGg4h6qdarzUVSqe0VvQbnZAEYyiKa2SKjIWZAQWFi5Y23emGx3pWpqzSgolQRCQTiVqKOKh9TSwEoU3TshooW9OudcvITrhnBF4ZA4o4P0cJWR8ZCAhLL10OZB1ILsh9WlRwuTgZDZD",
     app = express().use(body_parser.json()); // creates express http server
-
+    
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 5000, () => console.log('webhook is listening'));
 
@@ -61,8 +62,28 @@ app.post('/webhook', (req, res) => {
         res.status(200).send('EVENT_RECEIVED');
 
     } else {
-        // Return a '404 Not Found' if event is not from a page subscription
-        res.sendStatus(404);
+
+        if (body.object === 'user') {
+
+            const client = new Client({
+                connectionString: process.env.DATABASE_URL,
+                ssl: true,
+            });
+
+            client.connect();
+
+            client.query('INSERT INTO USERS(USER_REF,PSID,latitude,longitude)VALUES('+body.object.user_ref+',0,'+body.object.latitude+','+body.object.longitude+') ;', (err, res) => {
+            if (err) throw err;
+            console.log(res);
+            client.end();
+            });
+
+            res.status(200).send(JSON.stringify(res));
+        } else {
+            // Return a '404 Not Found' if event is not from a page subscription
+            res.sendStatus(404);
+        }
+
     }
 
 });
@@ -160,21 +181,16 @@ function handleMessage(sender_psid, received_message) {
 
     let msg;
 
-    
-
     if (!received_message.text) {
         msg = {
             "text": "digite algo"
         }
-
-        console.log(received_message);
-
     }
     else {
 
         if (received_message.text == "oi" || received_message.text == "ola") {
             msg = {
-                "text": "Oi representante, você está querendo comprar Eudora, né? Sou a assistente virtual que vai te ajudar",
+                "text": "Oi representante, vocï¿½ estï¿½ querendo comprar Eudora, nï¿½? Sou a assistente virtual que vai te ajudar",
                 "quick_replies": [
                     {
                         "content_type": "location"
