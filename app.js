@@ -160,8 +160,14 @@ function handleMessage(sender_psid, received_message) {
         }
     }
     else {
-        msg = {
-            "text": "retorno mensagem: " + received_message.text
+        if (received_message.text == "oi" || received_message.text == "ola") {
+            var hello = helloFunction();
+            msg = hello;
+        }
+        else {
+            msg = {
+                "text": "retorno mensagem: " + received_message.text
+            }
         }
     }
 
@@ -176,7 +182,7 @@ function handlePostback(sender_psid, received_postback) {
     console.log("handlePostback");
 }
 
-function helloFunction(sender_psid) {
+function helloFunction() {
 
     console.log("helloFunction");
 
@@ -197,9 +203,9 @@ function helloFunction(sender_psid) {
     console.log("teste");
     console.log(teste);
 
-    msg = {
+    hellomsg = {
         "text": "Oi, {Name}, você está querendo comprar Eudora, né? Sou a assistente virtual que vai te ajudar"
     }
 
-    callSendAPI(sender_psid, msg);
+    return hellomsg;
 }
