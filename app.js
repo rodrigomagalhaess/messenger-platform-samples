@@ -100,6 +100,10 @@ app.get('/webhook', (req, res) => {
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
 
+    console.log("mode");
+    console.log(mode);
+    console.log(token);
+
     // Check if a token and mode were sent
     if (mode && token) {
 
