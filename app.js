@@ -126,6 +126,9 @@ function callSendAPI(sender_psid, response) {
         "message": response
     };
 
+    console.log('#########################');
+    console.log("sender_psid: " + sender_psid);
+
     // Send the HTTP request to the Messenger Platform
     request({
         "uri": "https://graph.facebook.com/v2.6/me/messages",
@@ -135,7 +138,6 @@ function callSendAPI(sender_psid, response) {
     }, (err, res, body) => {
         if (!err) {
             console.log('message sent!');
-            console.log(res);
             console.log('#########################');
             console.log(body);
         } else {
@@ -162,6 +164,8 @@ function handleMessage(sender_psid, received_message) {
             "text": "retorno mensagem: " + received_message.text
         }
     }
+
+    console.log("msg" + msg);
 
     callSendAPI(sender_psid, msg);
 }
